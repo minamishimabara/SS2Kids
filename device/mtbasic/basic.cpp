@@ -18,7 +18,8 @@ void sakura(int n, int *val);
 // TO-DO Rewrite defined values to fit your machine as needed
 #define SIZE_LINE 200 //Command line buffer length + NULL
 #define SIZE_IBUF 200 //i-code conversion buffer size
-#define SIZE_LIST 255 //List buffer size
+//#define SIZE_LIST 255 //List buffer size
+#define SIZE_LIST 510 //List buffer size
 #define SIZE_ARRY 32 //Array area size
 #define SIZE_GSTK 6 //GOSUB stack size(2/nest)
 #define SIZE_LSTK 15 //FOR stack size(5/nest)
@@ -1092,6 +1093,25 @@ void isleep() {
     delay(999);
   }
 }
+
+bool spliturl(char *url, char *host, char *path) {
+  char *h = strstr(url, "://");
+  if (h == NULL) {
+    return false;
+  }
+  h += 3;
+  char *p = strchr(h, '/');
+  if (p == NULL) {
+    strcpy(path, "/");
+    strcpy(host, h);
+  } else {
+    strcpy(path, p);
+    int n = p - h;
+    memcpy(host, h, n);
+    host[n] = '\0';
+  }
+  return true;
+}
 // 0:まだ続く 1:文の終わり 2:終了
 int chkcomma() {
   if (*cip == I_COMMA) { //もしコンマがあったら
@@ -1191,15 +1211,19 @@ void imqtt() {
   char url[128];
   char msg[256];
   char tmp[256];
-  sprintf(tmp, "{\"d\":%s}", msg);
   mkmsg(url, msg);
-  pub(url, msg);  
+  sprintf(tmp, "{\"d\":%s}", msg);
+  pub(url, tmp);  
 }
 void ihttp() {
   char url[128];
   char msg[256];
+  char host[256];
+  char path[256];
   mkmsg(url, msg);
-  post("sensortag.azure-mobile.net", url, msg);
+  spliturl(url, host, path);
+  post(host, path, msg);
+//  post("sensortag.azure-mobile.net", url, msg);
 //  post("maker.ifttt.com", url, msg);
 }
 void isakura() {
