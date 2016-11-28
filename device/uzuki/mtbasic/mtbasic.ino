@@ -7,6 +7,8 @@ void setupWiFi();
 void loopWiFi();
 void setupMqtt();
 void loopMqtt();
+void setupSi1145();
+void loopSi1145();
 void setupDht11();
 void loopDht11();
 //void setupSakura();
@@ -27,6 +29,7 @@ void setup(void){
   }
   setupWiFi();
   setupMqtt();
+  setupSi1145();
   setupDht11();
 //  setupSakura();
 }
@@ -34,6 +37,7 @@ void setup(void){
 void loop(void) {
 //  loopWiFi();
 //  loopMqtt();
+//  loopSi1145();
 //  loopDht11();
   basic();
 }

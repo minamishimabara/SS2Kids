@@ -8,6 +8,9 @@
 #include <stdlib.h>
 #include <EEPROM.h>
 
+short getIllumi();
+short getIllumiIr();
+short getUvIndex();
 short getHumidity();
 short getTemperature();
 void pub(char* url, char *msg);
@@ -59,11 +62,12 @@ const char *kwtbl[] = {
   "IF", "REM", "STOP",
   "INPUT", "PRINT", "LET",
   "LED", "ON", "OFF", "SLEEP", "SW", "ANALOG",
+  "ILLUMI", "ILLUMIIR", "UVINDEX", 
   "HUMIDITY", "TEMPERATURE",
   "MQTT", "HTTP", "SAKURA",
   ",", ";",
   "-", "+", "*", "/", "(", ")",
-  ">=", "#", ">", /*"="*/ ":", "<=", "<",
+  ">=", "#", ">", "=", "<=", "<", ":",
   "@", "RND", "ABS", "SIZE",
   "LIST", "RUN", "NEW",
   "SAVE",//extend
@@ -81,11 +85,12 @@ enum {
   I_IF, I_REM, I_STOP,
   I_INPUT, I_PRINT, I_LET,
   I_LED, I_ON, I_OFF, I_SLEEP, I_SW, I_ANALOG,
+  I_ILLUMI, I_ILLUMIIR, I_UVINDEX, 
   I_HUMIDITY, I_TEMPERATURE,
   I_MQTT, I_HTTP, I_SAKURA,
   I_COMMA, I_SEMI,
   I_MINUS, I_PLUS, I_MUL, I_DIV, I_OPEN, I_CLOSE,
-  I_GTE, I_SHARP, I_GT, I_EQ, I_LTE, I_LT,
+  I_GTE, I_SHARP, I_GT, I_EQ, I_LTE, I_LT, I_COLON,
   I_ARRAY, I_RND, I_ABS, I_SIZE,
   I_LIST, I_RUN, I_NEW,
   I_SAVE,//extend
@@ -98,18 +103,19 @@ enum {
 // List formatting condition
 // 後ろに空白を入れない中間コード
 const unsigned char i_nsa[] = {
-  I_ON, I_OFF, I_SW,
+  I_ON, I_OFF, I_SW, I_ANALOG,
+  I_ILLUMI, I_ILLUMIIR, I_UVINDEX, 
   I_HUMIDITY, I_TEMPERATURE,
   I_RETURN, I_STOP, I_COMMA,
   I_MINUS, I_PLUS, I_MUL, I_DIV, I_OPEN, I_CLOSE,
-  I_GTE, I_SHARP, I_GT, I_EQ, I_LTE, I_LT,
+  I_GTE, I_SHARP, I_GT, I_EQ, I_LTE, I_LT, I_COLON,
   I_ARRAY, I_RND, I_ABS, I_SIZE
 };
 
 // 前が定数か変数のとき前の空白をなくす中間コード
 const unsigned char i_nsb[] = {
   I_MINUS, I_PLUS, I_MUL, I_DIV, I_OPEN, I_CLOSE,
-  I_GTE, I_SHARP, I_GT, I_EQ, I_LTE, I_LT,
+  I_GTE, I_SHARP, I_GT, I_EQ, I_LTE, I_LT, I_COLON,
   I_COMMA, I_SEMI, I_EOL
 };
 
@@ -147,7 +153,7 @@ const char* errmsg[] = {
   "IF without condition",
   "Undefined line number",
   "\'(\' or \')\' expected",
-  "\'=\' expected",
+  "\':\' expected",
   "Illegal command",
   "Syntax error",
   "Internal error",
@@ -728,6 +734,33 @@ short ivalue() {
       cip += 2;
       value = analogRead(A0);
       break;
+    case I_ILLUMI:
+      cip++;
+      if ((*cip != I_OPEN) || (*(cip + 1) != I_CLOSE)) {
+        err = ERR_PAREN;
+        break;
+      }
+      cip += 2;
+      value = getIllumi();
+      break;
+    case I_ILLUMIIR:
+      cip++;
+      if ((*cip != I_OPEN) || (*(cip + 1) != I_CLOSE)) {
+        err = ERR_PAREN;
+        break;
+      }
+      cip += 2;
+      value = getIllumiIr();
+      break;
+    case I_UVINDEX:
+      cip++;
+      if ((*cip != I_OPEN) || (*(cip + 1) != I_CLOSE)) {
+        err = ERR_PAREN;
+        break;
+      }
+      cip += 2;
+      value = getUvIndex();
+      break;
     case I_HUMIDITY:
       cip++;
       if ((*cip != I_OPEN) || (*(cip + 1) != I_CLOSE)) {
@@ -989,7 +1022,7 @@ void ivar() {
 
   index = *cip++; //変数番号を取得して次へ進む
 
-  if (*cip != I_EQ) { //もし「=」でなければ
+  if (*cip != I_COLON) { //もし「:」でなければ
     err = ERR_VWOEQ; //エラー番号をセット
     return; //終了
   }
@@ -1016,7 +1049,7 @@ void iarray() {
     return; //終了
   }
 
-  if (*cip != I_EQ) { //もし「=」でなければ
+  if (*cip != I_COLON) { //もし「:」でなければ
     err = ERR_VWOEQ; //エラー番号をセット
     return; //終了
   }

@@ -50,7 +50,6 @@ void setupSi1145() {
     Serial.println("Didn't find Si1145");
     while (1);
   }
-
   Serial.println("OK!");
 }
 
@@ -61,4 +60,17 @@ void loopSi1145() {
   float UVindex = uv.readUV();
   UVindex /= 100.0;  
   Serial.print("UV: ");  Serial.println(UVindex);
+}
+short getIllumi() {
+  uint16_t val = uv.readVisible();
+  return (short)val;
+}
+short getIllumiIr() {
+  uint16_t val = uv.readIR();
+  return (short)val;
+}
+short getUvIndex() {
+  uint16_t val = uv.readUV();
+  val /= 100.0;  
+  return (short)val;
 }

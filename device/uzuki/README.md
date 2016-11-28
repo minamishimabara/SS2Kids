@@ -1,6 +1,19 @@
-# 南島原タイニーBASIC（konashiボードバージョン）
+# 南島原タイニーBASIC（uzukiボードバージョン）
 ## 南島原発小中学生向けのIoT言語
 - 今のところ、ESP8266で動作
+
+## ハードウエア
+### ESPr One
+WiFi付き、マイコンボード
+<img src="https://docid81hrs3j1.cloudfront.net/contents/large/2620_1.jpg">
+価格2,980円
+<https://www.switch-science.com/catalog/2620/>
+
+### UZUKIセンサシールド
+温湿度センサ、照度UV指数センサ
+<img src="https://docid81hrs3j1.cloudfront.net/contents/large/uzuki-001-500.jpg">
+価格2,673円
+<https://www.switch-science.com/catalog/2555/>
 
 ## 南島原タイニーBASICの文法
 - 値の範囲 16ビット符号付き整数(-32767～32767)、数値のみ！
@@ -15,7 +28,10 @@
 - RUN
 - NEW
 - SAVE [BOOT]
+ - EEPROMにプログラムを保存する。BOOT指定時は、起動時に保存したプログラムを自動実行する
 - LOAD
+ - EEPROMに保存したプログラムを読み込む
+
 
 ### 文
 - PRINT [《文字列》|#《桁数》| 《式》 ][,《文字列》|#《桁数》|《式》 …]
@@ -28,10 +44,12 @@
 - FOR 《変数》=《開始値》 TO 《終了値》[STEP 《増分》]、NEXT 《変数》
 - STOP
 - SLEEP 《式》
+ - 指定時間（ミリ秒）停止
 - LED 《式》 [ON|OFF]
-- SLEEP 《式》
+ - 指定された番号のLEDを制御する。ボード上のLEDの番号は14
 - MQTT 《文字列》,《文字列》,《式》[,《文字列》,《式》]
 - HTTP 《文字列》,《文字列》,《式》[,《文字列》,《式》]
+ - 指定されたURLにPOSTする、データ形式は階層のないJSON
 
 
 ### 関数
@@ -39,9 +57,18 @@
 - ABS(《式》)
 - RND(《式》)
 - SW()
+- ILLUMI()
+ - 照度を返す
+- ILLUMIIR()
+ - 赤外線照度を返す
+- UVINDEX()
+ - 紫外線インデックス（パーセンテージ）を返す
 - ANALOG()
+ - A0ポートのアナログ値を返す
 - HUMIDITY()
+ - 湿度（摂氏）を返す
 - TEMPERATURE()
+ - 温度（パーセンテージ）を返す
 
 
 ## その他の情報
@@ -50,7 +77,6 @@
 南島原タイニーBASICと命名
 
 ### TODO
-- IF文中の同値判定が「=」でなく「:」になっている
 - SW()の仕様をSW(《式》)にする
 - MQTTがIBM固定、HOST名、クライアントIDを動的に設定可能にする
 - さくらのIoTも対応したい
