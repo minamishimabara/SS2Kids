@@ -50,8 +50,8 @@ void loop(void) {
 50 L:ANALOG()
 55 PRINT "TMP:",T," HUM:",H," LUX:",L
 60 rem mqtt "iot-2/evt/status/fmt/json","tmp",TEMPERATURE(),"hum",HUMIDITY()
-70 rem http "tables/ss2ito","tmp",T,"hum",H,"lux",L
-80 rem http "trigger/iphone/with/key/dpj0Wn5_i58qaygVwM8I7I","value1","aaaa","value2","bbbb", "value3", "cccc"
+70 rem http "http://sensortag.azure-mobile.net/tables/ss2ito","tmp",T,"hum",H,"lux",L
+80 rem http "http://maker.ifttt.com/trigger/iphone/with/key/dpj0Wn5_i58qaygVwM8I7I","value1","aaaa","value2","bbbb", "value3", "cccc"
 90 sleep 2000
 100 goto 10
 */

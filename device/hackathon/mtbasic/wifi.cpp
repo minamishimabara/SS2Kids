@@ -58,7 +58,7 @@ void post(char *host, char *url, char *json) {
     Serial.println("connection failed");
     return;
   }
-  Serial.println("http post...");
+  //Serial.println("http post...");
   wifiClient.println(String("POST /")  + url + " HTTP/1.1");
   wifiClient.println(String("Host: ") + host);
   wifiClient.println("Cache-Control: no-cache");

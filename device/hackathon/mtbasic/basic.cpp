@@ -98,7 +98,7 @@ enum {
 // List formatting condition
 // 後ろに空白を入れない中間コード
 const unsigned char i_nsa[] = {
-  I_ON, I_OFF, I_SW,
+  I_ON, I_OFF, I_SW, I_ANALOG,
   I_HUMIDITY, I_TEMPERATURE,
   I_RETURN, I_STOP, I_COMMA,
   I_MINUS, I_PLUS, I_MUL, I_DIV, I_OPEN, I_CLOSE,
