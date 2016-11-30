@@ -4,16 +4,24 @@
 
 ## ハードウエア
 ### ESPr One
-WiFi付き、マイコンボード
+- WiFi付き、マイコンボード
 <img src="https://docid81hrs3j1.cloudfront.net/contents/large/2620_1.jpg">
-価格2,980円
+- 価格2,980円
 <https://www.switch-science.com/catalog/2620/>
 
 ### UZUKIセンサシールド
-温湿度センサ、照度UV指数センサ
+- 温湿度センサ、照度UV指数センサ
 <img src="https://docid81hrs3j1.cloudfront.net/contents/large/uzuki-001-500.jpg">
-価格2,673円
+- 価格2,673円
 <https://www.switch-science.com/catalog/2555/>
+
+- 温湿度センサが動作しないので、XXXを利用
+ - 温湿度センサ、照度UV指数センサ
+<img src="https://docid81hrs3j1.cloudfront.net/contents/large/uzuki-001-500.jpg">
+ - 価格2,673円
+<https://www.switch-science.com/catalog/2555/>
+
+
 
 ## 南島原タイニーBASICの文法
 - 値の範囲 16ビット符号付き整数(-32767～32767)、数値のみ！
