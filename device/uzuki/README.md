@@ -9,17 +9,23 @@
 - 価格2,980円
 <https://www.switch-science.com/catalog/2620/>
 
+### GROVE - ベースシールド
+- センサ類を共通のコネクタで繋げられる、はんだ付けや配線などは不要
+<img src="https://statics3.seeedstudio.com/seeed/img/2016-09/oJYc6A5jTrgslQWC5j7gw9tI.jpg">
+- 価格1,242円
+<https://www.switch-science.com/catalog/1293/>
+
 ### UZUKIセンサシールド
 - 温湿度センサ、照度UV指数センサ
 <img src="https://docid81hrs3j1.cloudfront.net/contents/large/uzuki-001-500.jpg">
 - 価格2,673円
 <https://www.switch-science.com/catalog/2555/>
 
-- 温湿度センサが動作しないので、XXXを利用
+- 温湿度センサが動作しないので、AM2320を利用
  - 温湿度センサ、照度UV指数センサ
-<img src="https://docid81hrs3j1.cloudfront.net/contents/large/uzuki-001-500.jpg">
+<img src="http://akizukidenshi.com/img/goods/L/M-08663.jpg">
  - 価格2,673円
-<https://www.switch-science.com/catalog/2555/>
+<http://akizukidenshi.com/catalog/g/gM-08663/>
 
 
 
@@ -53,6 +59,7 @@
 - STOP
 - SLEEP 《式》
  - 指定時間（ミリ秒）停止
+- LCD [《文字列》|#《桁数》| 《式》 ][,《文字列》|#《桁数》|《式》 …]
 - LED 《式》 [ON|OFF]
  - 指定された番号のLEDを制御する。ボード上のLEDの番号は14
 - MQTT 《文字列》,《文字列》,《式》[,《文字列》,《式》]

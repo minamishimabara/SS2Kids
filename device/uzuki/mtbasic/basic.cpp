@@ -240,7 +240,7 @@ void c_gets() {
     lbuf[++len] = 0; //終端を置く
   }
 }
-
+/*
 // Print numeric specified columns
 void putnum(short value, short d) {
   unsigned char dig; //桁位置
@@ -268,8 +268,44 @@ void putnum(short value, short d) {
     d--; //指定の桁数を1減らす
   }
   c_puts(&lbuf[dig]); //桁位置からバッファの文字列を表示
-}
+}*/
+// Print numeric specified columns
+void putnum(char *buf, short value, short d) {
+  unsigned char dig; //桁位置
+  unsigned char sign; //負号の有無（値を絶対値に変換した印）
 
+  if (value < 0) { //もし値が0未満なら
+    sign = 1; //負号あり
+    value = -value; //値を絶対値に変換
+  }
+  else {
+    sign = 0; //負号なし
+  }
+
+  lbuf[6] = 0; //終端を置く
+  dig = 6; //桁位置の初期値を末尾に設定
+  do { //次の処理をやってみる
+    lbuf[--dig] = (value % 10) + '0'; //1の位を文字に変換して保存
+    value /= 10; //1桁落とす
+  } while (value > 0); //値が0でなければ繰り返す
+
+  if (sign) //もし負号ありなら
+    lbuf[--dig] = '-'; //負号を保存
+
+  while (6 - dig < d) { //指定の桁数を下回っていれば繰り返す
+    *buf++ = ' '; //桁の不足を空白で埋める
+    d--; //指定の桁数を1減らす
+  }
+  while (lbuf[dig]) {
+    *buf++ = lbuf[dig++];
+  }
+  *buf = '\0';
+}
+void putnum(short value, short d) {
+  char buf[6];
+  putnum(buf, value, d);//桁位置からバッファの文字列をコピー
+  c_puts(buf); 
+}
 // Input numeric and return value
 // Called by only INPUT statement
 short getnum() {
@@ -938,7 +974,6 @@ void iprint() {
       }
     }
   } //文末まで繰り返すの末尾
-
   newline(); //改行
 }
 

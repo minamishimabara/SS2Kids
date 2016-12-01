@@ -72,3 +72,29 @@ void post(char *host, char *url, char *json) {
 //    Serial.print(line);
 //  }
 }
+
+// "data:image/jpeg;base64,"を先頭に付ける
+// BASE64にするには3バイト単位でないと不都合
+// なので、PIC_PKT_LENが128→126にする
+// 画像の小さいPICFMT_OCIFにする
+
+void cnv(char *p, int n) {
+	char *w = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+	int i = 0, x = 0, l = 0;
+	char buff[128 *8/6+1];
+	for (int j = 0; j < n; j++, p++) {
+		x = x << 8 | *p;
+		for (l += 8; l >= 6; l -= 6) {
+			buff[i++] = w[(x >> (l - 6)) & 0x3f];
+		}
+	}
+	if (l > 0) {
+		x <<= 6 - l;
+		buff[i++] = w[x & 0x3f];
+	}
+	for (; i % 4;) {
+		buff[i++] = '=';
+	}
+	buff[i++] = '\0';
+	puts(buff);
+}
