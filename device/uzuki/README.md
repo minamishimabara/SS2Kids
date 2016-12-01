@@ -1,6 +1,6 @@
 # 南島原タイニーBASIC（uzukiボードバージョン）
 ## 南島原発小中学生向けのIoT言語
-- 今のところ、ESP8266で動作
+- ESPr Oneで動作
 
 ## ハードウエア
 ### ESPr One
@@ -16,13 +16,13 @@
 <https://www.switch-science.com/catalog/1293/>
 
 ### UZUKIセンサシールド
-- 温湿度センサ、照度UV指数センサ
+- 3軸加速度センサ、温湿度センサ、近接照度UV指数センサ
 <img src="https://docid81hrs3j1.cloudfront.net/contents/large/uzuki-001-500.jpg">
 - 価格2,673円
 <https://www.switch-science.com/catalog/2555/>
 
-- 温湿度センサが動作しないので、AM2320を利用
- - 温湿度センサ、照度UV指数センサ
+- UZUKIの温湿度センサが動作しないので、AM2320を利用
+ - 温湿度センサ
 <img src="http://akizukidenshi.com/img/goods/L/M-08663.jpg">
  - 価格2,673円
 <http://akizukidenshi.com/catalog/g/gM-08663/>
@@ -92,6 +92,7 @@
 南島原タイニーBASICと命名
 
 ### TODO
+- WiFiのSSIDとパスワードがハードコーディングになってる
 - SW()の仕様をSW(《式》)にする
 - MQTTがIBM固定、HOST名、クライアントIDを動的に設定可能にする
 - さくらのIoTも対応したい
