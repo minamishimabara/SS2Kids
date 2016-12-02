@@ -29,22 +29,23 @@ function loadTextFile(){
   httpObj = new XMLHttpRequest();
   httpObj.onload = displayData;
   //httpObj.open("GET","http://sensortag.azure-mobile.net/tables/ss2ito?$top=1&$orderby=__updatedAt%20desc", true);
-  httpObj.open("GET","https://devsumir1t03-1.azure-mobile.net/tables/sakana?$top=1&$orderby=__updatedAt%20desc", true);
+  //httpObj.open("GET","https://devsumir1t03-1.azure-mobile.net/tables/sakana?$top=1&$orderby=__updatedAt%20desc", true);
+  httpObj.open("GET","http://sensortag.azure-mobile.net/tables/ss2saito?$top=1&$orderby=__updatedAt%20desc", true);
   httpObj.onreadystatechange = function() {
     if (httpObj.readyState == 4 && httpObj.status == 200) {
       //document.ajaxForm.result.value = httpObj.responseText;
       var myData = JSON.parse(httpObj.responseText);
       //document.ajaxForm.result.value = new Date().toString() + ' ' + myData[0].id + ' ' + myData[0].tmp + ' ' + myData[0].hum + ' ' + myData[0].lux;
       //var tmp = myData[0].tmp
-      var tmp = myData[0].text
+      var tmp = "123";//myData[0].text
       document.getElementById('tmp').innerHTML = tmp;
       //var hum = myData[0].hum
-      var hum = myData[0].text2
+      var hum = "456";//myData[0].text2
       document.getElementById('hum').innerHTML = hum;
       //var lux = myData[0].lux
-      var lux = myData[0].text3
+      var lux = "789";//myData[0].text3
       document.getElementById('lux').innerHTML = lux;
-      document.getElementById('photo').innerHTML = '<img src="' + myData[0].photo + '" width="180" height="140">';
+      document.getElementById('photo').innerHTML = '<img src="' + myData[0].photo + '">';
     }
   };
   httpObj.setRequestHeader("Accept" , "application/json");
@@ -72,7 +73,7 @@ console.log("time out set");
       <div class="left_col scroll-view">
         <div class="navbar nav_title" style="border: 0;"><a href="index.html" class="site_title"><em class="fa fa-paw"></em> <span>SS2Kid's</span></a></div>
         <div class="clearfix"></div>
-        
+
         <!-- menu profile quick info -->
         <div class="profile">
           <div class="profile_pic"> <img src="images/img.jpg" alt="..." class="img-circle profile_img"> </div>
@@ -96,14 +97,14 @@ console.log("time out set");
             </ul>
           </div>
         </div>
-        <!-- /sidebar menu --> 
-        
+        <!-- /sidebar menu -->
+
         <!-- /menu footer buttons -->
         <div class="sidebar-footer hidden-small"> <a data-toggle="tooltip" data-placement="top" title="Settings"> <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> </a> <a data-toggle="tooltip" data-placement="top" title="FullScreen"> <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span> </a> <a data-toggle="tooltip" data-placement="top" title="Lock"> <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span> </a> <a data-toggle="tooltip" data-placement="top" title="Logout"> <span class="glyphicon glyphicon-off" aria-hidden="true"></span> </a> </div>
-        <!-- /menu footer buttons --> 
+        <!-- /menu footer buttons -->
       </div>
     </div>
-    
+
     <!-- top navigation -->
     <div class="top_nav">
       <div class="nav_menu">
@@ -133,10 +134,10 @@ console.log("time out set");
         </nav>
       </div>
     </div>
-    <!-- /top navigation --> 
-    
+    <!-- /top navigation -->
+
     <!-- page content -->
-    <div class="right_col" role="main"> 
+    <div class="right_col" role="main">
       <!-- top tiles -->
       <!--<form name="ajaxForm">
         <input type="button" value="test" onClick="loadTextFile()"><br>
@@ -163,7 +164,7 @@ console.log("time out set");
           <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>- </i> -</span> </div>
       </div>
       <!-- /top tiles -->
-      
+
       <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="dashboard_graph">
@@ -197,59 +198,59 @@ console.log("time out set");
       <br />
       <div class="row"> </div>
     </div>
-    <!-- /page content --> 
-    
+    <!-- /page content -->
+
     <!-- footer content -->
     <footer>
       <div class="pull-right"> Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a> </div>
       <div class="clearfix"></div>
     </footer>
-    <!-- /footer content --> 
+    <!-- /footer content -->
   </div>
 </div>
 
-<!-- jQuery --> 
-<script src="../vendors/jquery/dist/jquery.min.js"></script> 
-<!-- Bootstrap --> 
-<script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script> 
-<!-- FastClick --> 
-<script src="../vendors/fastclick/lib/fastclick.js"></script> 
-<!-- NProgress --> 
-<script src="../vendors/nprogress/nprogress.js"></script> 
-<!-- Chart.js --> 
-<!--<script src="../vendors/Chart.js/dist/Chart.min.js"></script>--> 
-<!-- gauge.js --> 
-<!--<script src="../vendors/gauge.js/dist/gauge.min.js"></script>--> 
-<!-- bootstrap-progressbar --> 
-<script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script> 
-<!-- iCheck --> 
-<script src="../vendors/iCheck/icheck.min.js"></script> 
-<!-- Skycons --> 
-<script src="../vendors/skycons/skycons.js"></script> 
-<!-- Flot --> 
-<script src="../vendors/Flot/jquery.flot.js"></script> 
-<script src="../vendors/Flot/jquery.flot.pie.js"></script> 
-<script src="../vendors/Flot/jquery.flot.time.js"></script> 
-<script src="../vendors/Flot/jquery.flot.stack.js"></script> 
-<script src="../vendors/Flot/jquery.flot.resize.js"></script> 
-<!-- Flot plugins --> 
-<script src="../vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script> 
-<script src="../vendors/flot-spline/js/jquery.flot.spline.min.js"></script> 
-<script src="../vendors/flot.curvedlines/curvedLines.js"></script> 
-<!-- DateJS --> 
-<script src="../vendors/DateJS/build/date.js"></script> 
-<!-- JQVMap --> 
-<script src="../vendors/jqvmap/dist/jquery.vmap.js"></script> 
-<script src="../vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script> 
-<script src="../vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script> 
-<!-- bootstrap-daterangepicker --> 
-<script src="../vendors/moment/min/moment.min.js"></script> 
-<script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script> 
+<!-- jQuery -->
+<script src="../vendors/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="../vendors/fastclick/lib/fastclick.js"></script>
+<!-- NProgress -->
+<script src="../vendors/nprogress/nprogress.js"></script>
+<!-- Chart.js -->
+<!--<script src="../vendors/Chart.js/dist/Chart.min.js"></script>-->
+<!-- gauge.js -->
+<!--<script src="../vendors/gauge.js/dist/gauge.min.js"></script>-->
+<!-- bootstrap-progressbar -->
+<script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+<!-- iCheck -->
+<script src="../vendors/iCheck/icheck.min.js"></script>
+<!-- Skycons -->
+<script src="../vendors/skycons/skycons.js"></script>
+<!-- Flot -->
+<script src="../vendors/Flot/jquery.flot.js"></script>
+<script src="../vendors/Flot/jquery.flot.pie.js"></script>
+<script src="../vendors/Flot/jquery.flot.time.js"></script>
+<script src="../vendors/Flot/jquery.flot.stack.js"></script>
+<script src="../vendors/Flot/jquery.flot.resize.js"></script>
+<!-- Flot plugins -->
+<script src="../vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+<script src="../vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+<script src="../vendors/flot.curvedlines/curvedLines.js"></script>
+<!-- DateJS -->
+<script src="../vendors/DateJS/build/date.js"></script>
+<!-- JQVMap -->
+<script src="../vendors/jqvmap/dist/jquery.vmap.js"></script>
+<script src="../vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+<script src="../vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+<!-- bootstrap-daterangepicker -->
+<script src="../vendors/moment/min/moment.min.js"></script>
+<script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
 
-<!-- Custom Theme Scripts --> 
-<script src="../build/js/custom.min.js"></script> 
+<!-- Custom Theme Scripts -->
+<script src="../build/js/custom.min.js"></script>
 
-<!-- Flot --> 
+<!-- Flot -->
 <script>
       $(document).ready(function() {
         var data1 = [
@@ -322,10 +323,10 @@ console.log("time out set");
           return new Date(year, month - 1, day).getTime();
         }
       });
-    </script> 
-<!-- /Flot --> 
+    </script>
+<!-- /Flot -->
 
-<!-- JQVMap --> 
+<!-- JQVMap -->
 <!--<script>
       $(document).ready(function(){
         $('#world-map-gdp').vectorMap({
@@ -341,10 +342,10 @@ console.log("time out set");
             normalizeFunction: 'polynomial'htm
         });
       });
-    </script>--> 
-<!-- /JQVMap --> 
+    </script>-->
+<!-- /JQVMap -->
 
-<!-- Skycons --> 
+<!-- Skycons -->
 <script>
       $(document).ready(function() {
         var icons = new Skycons({
@@ -362,10 +363,10 @@ console.log("time out set");
 
         icons.play();
       });
-    </script> 
-<!-- /Skycons --> 
+    </script>
+<!-- /Skycons -->
 
-<!-- Doughnut Chart --> 
+<!-- Doughnut Chart -->
 <!--<script>
       $(document).ready(function(){
         var options = {
@@ -405,10 +406,10 @@ console.log("time out set");
           options: options
         });
       });
-    </script>--> 
-<!-- /Doughnut Chart --> 
+    </script>-->
+<!-- /Doughnut Chart -->
 
-<!-- bootstrap-daterangepicker --> 
+<!-- bootstrap-daterangepicker -->
 <script>
       $(document).ready(function() {
 
@@ -479,10 +480,10 @@ console.log("time out set");
           $('#reportrange').data('daterangepicker').remove();
         });
       });
-    </script> 
-<!-- /bootstrap-daterangepicker --> 
+    </script>
+<!-- /bootstrap-daterangepicker -->
 
-<!-- gauge.js --> 
+<!-- gauge.js -->
 <!--<script>
       var opts = {
           lines: 12,
@@ -506,7 +507,7 @@ console.log("time out set");
       gauge.animationSpeed = 32;
       gauge.set(3200);
       gauge.setTextField(document.getElementById("gauge-text"));
-    </script>--> 
+    </script>-->
 <!-- /gauge.js -->
 </body>
 </html>

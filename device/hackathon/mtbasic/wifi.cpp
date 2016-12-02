@@ -1,7 +1,7 @@
 #include <ESP8266WiFi.h>
 
-const char* ssid     = "uFi_F1298D";
-const char* password = "7Kj5GA5652";
+const char* ssid     = "iPhone 6S";
+const char* password = "P@55W0RD";
 
 void setupWiFi() {
   Serial.print("Connecting to ");

@@ -25,9 +25,9 @@ void setup(void){
   for (int i = 0; sws[i] != (const char)-1; i++) {
     pinMode(sws[i], INPUT);
   }
-  setupWiFi();
-  setupMqtt();
-  setupDht11();
+  //setupWiFi();
+  //setupMqtt();
+  //setupDht11();
 //  setupSakura();
 }
 

@@ -1,7 +1,7 @@
 #include <ESP8266WiFi.h>
 
-const char* ssid     = "uFi_F1298D";
-const char* password = "7Kj5GA5652";
+const char* ssid     = "iPhone 6S";
+const char* password = "P@55W0RD";
 
 void setupWiFi() {
   Serial.print("Connecting to ");
@@ -73,15 +73,15 @@ void post(char *host, char *url, char *json) {
 //  }
 }
 
-// "data:image/jpeg;base64,"‚ğæ“ª‚É•t‚¯‚é
-// BASE64‚É‚·‚é‚É‚Í3ƒoƒCƒg’PˆÊ‚Å‚È‚¢‚Æ•s“s‡
-// ‚È‚Ì‚ÅAPIC_PKT_LEN‚ª128¨126‚É‚·‚é
-// ‰æ‘œ‚Ì¬‚³‚¢PICFMT_OCIF‚É‚·‚é
+// "data:image/jpeg;base64,"ã‚’å…ˆé ­ã«ä»˜ã‘ã‚‹
+// BASE64ã«ã™ã‚‹ã«ã¯3ãƒã‚¤ãƒˆå˜ä½ã§ãªã„ã¨ä¸éƒ½åˆ
+// ãªã®ã§ã€PIC_PKT_LENãŒ128â†’126ã«ã™ã‚‹
+// ç”»åƒã®å°ã•ã„PICFMT_OCIFã«ã™ã‚‹
 
 void cnv(char *p, int n) {
 	char *w = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 	int i = 0, x = 0, l = 0;
-	char buff[128 *8/6+1];
+	char buff[128 *8/6+5];
 	for (int j = 0; j < n; j++, p++) {
 		x = x << 8 | *p;
 		for (l += 8; l >= 6; l -= 6) {

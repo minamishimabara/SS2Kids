@@ -1678,12 +1678,12 @@ void basic() {
   c_puts(STR_EDITION); //版を区別する文字列を表示
   c_puts(" EDITION"); //「 EDITION」を表示
   newline(); //改行
-  if(bootflag() == I_BOOT){
+/*  if(bootflag() == I_BOOT){
     c_puts("Power on run"); newline();
 //    flash_read(listbuf);
     iload();
     irun();
-  }
+  }*/
   error(); //「OK」またはエラーメッセージを表示してエラー番号をクリア
 
   //端末から1行を入力して実行
