@@ -28,29 +28,37 @@
 function loadTextFile(){
   httpObj = new XMLHttpRequest();
   httpObj.onload = displayData;
-  //httpObj.open("GET","http://sensortag.azure-mobile.net/tables/ss2ito?$top=1&$orderby=__updatedAt%20desc", true);
-  //httpObj.open("GET","https://devsumir1t03-1.azure-mobile.net/tables/sakana?$top=1&$orderby=__updatedAt%20desc", true);
-  httpObj.open("GET","http://sensortag.azure-mobile.net/tables/ss2saito?$top=1&$orderby=__updatedAt%20desc", true);
+  httpObj.open("GET","http://sensortag.azure-mobile.net/tables/ss2ito?$top=1&$orderby=__updatedAt%20desc", true);
   httpObj.onreadystatechange = function() {
     if (httpObj.readyState == 4 && httpObj.status == 200) {
-      //document.ajaxForm.result.value = httpObj.responseText;
+      console.log("httpObj.responseText:" + httpObj.responseText);
       var myData = JSON.parse(httpObj.responseText);
-      //document.ajaxForm.result.value = new Date().toString() + ' ' + myData[0].id + ' ' + myData[0].tmp + ' ' + myData[0].hum + ' ' + myData[0].lux;
-      //var tmp = myData[0].tmp
-      var tmp = "123";//myData[0].text
+      console.log("myData:" + myData);
+      console.log("myData[0]:" + myData[0]);
+      var tmp = myData[0].tmp
       document.getElementById('tmp').innerHTML = tmp;
-      //var hum = myData[0].hum
-      var hum = "456";//myData[0].text2
+      var hum = myData[0].hum
       document.getElementById('hum').innerHTML = hum;
-      //var lux = myData[0].lux
-      var lux = "789";//myData[0].text3
+      var lux = myData[0].lux
       document.getElementById('lux').innerHTML = lux;
-      document.getElementById('photo').innerHTML = '<img src="' + myData[0].photo + '">';
     }
   };
   httpObj.setRequestHeader("Accept" , "application/json");
   httpObj.setRequestHeader("Content-Type" , "application/json");
   httpObj.send(null);
+
+  httpObj2 = new XMLHttpRequest();
+  httpObj2.onload = displayData;
+  httpObj2.open("GET","http://sensortag.azure-mobile.net/tables/ss2saito?$top=1&$orderby=__updatedAt%20desc", true);
+  httpObj2.onreadystatechange = function() {
+    if (httpObj2.readyState == 4 && httpObj2.status == 200) {
+      var myData = JSON.parse(httpObj2.responseText);
+      document.getElementById('photo').innerHTML = '<img src="' + myData[0].photo + '">';
+    }
+  };
+  httpObj2.setRequestHeader("Accept" , "application/json");
+  httpObj2.setRequestHeader("Content-Type" , "application/json");
+  httpObj2.send(null);
 }
 function displayData(){
     //document.ajaxForm.result.value = httpObj.responseText;

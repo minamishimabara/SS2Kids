@@ -18,6 +18,8 @@
 
 #define PIC_FMT        PIC_FMT_OCIF
 
+int c_kbhit();
+int c_getch();
 
 const byte cameraAddr = (CAM_ADDR << 5);  // addr
 unsigned long picTotalLen = 0;            // picture length
@@ -47,19 +49,19 @@ void initialize()
     unsigned char resp[6];
 
     Serial.setTimeout(500);
-    while (1)
-    {
+    while (1) {
         //clearRxBuf();
         sendCmd(cmd,6);
-        if (Serial.readBytes((char *)resp, 6) != 6)
-        {
+        if (Serial.readBytes((char *)resp, 6) != 6) {
             continue;
         }
-        if (resp[0] == 0xaa && resp[1] == (0x0e | cameraAddr) && resp[2] == 0x0d && resp[4] == 0 && resp[5] == 0)
-        {
+        if (resp[0] == 0xaa && resp[1] == (0x0e | cameraAddr) && resp[2] == 0x0d && resp[4] == 0 && resp[5] == 0) {
             if (Serial.readBytes((char *)resp, 6) != 6) continue;
             if (resp[0] == 0xaa && resp[1] == (0x0d | cameraAddr) && resp[2] == 0 && resp[3] == 0 && resp[4] == 0 && resp[5] == 0) break;
         }
+        if (c_kbhit()) //もし未読文字があったら
+            if (c_getch() == 27)  //読み込んでもし［ESC］キーだったら
+                break; //打ち切る
     }
     cmd[1] = 0x0e | cameraAddr;
     cmd[2] = 0x0d;

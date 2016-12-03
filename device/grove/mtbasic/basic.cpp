@@ -17,6 +17,7 @@ void post(char* host, char* url, char *msg);
 short getHumidity();
 short getTemperature();
 void camera(char* host, char* url);
+void lcdprint(char *p);
 
 // TOYOSHIKI TinyBASIC symbols
 // TO-DO Rewrite defined values to fit your machine as needed
@@ -65,7 +66,7 @@ const char *kwtbl[] = {
   "LED", "ON", "OFF", "SLEEP", "SW", "ANALOG",
   "ILLUMI", "ILLUMIIR", "UVINDEX", 
   "HUMIDITY", "TEMPERATURE",
-  "MQTT", "HTTP", "SAKURA", "CAMERA",
+  "MQTT", "HTTP", "SAKURA", "CAMERA", "LCD", 
   ",", ";",
   "-", "+", "*", "/", "(", ")",
   ">=", "#", ">", "=", "<=", "<", ":",
@@ -88,7 +89,7 @@ enum {
   I_LED, I_ON, I_OFF, I_SLEEP, I_SW, I_ANALOG,
   I_ILLUMI, I_ILLUMIIR, I_UVINDEX, 
   I_HUMIDITY, I_TEMPERATURE,
-  I_MQTT, I_HTTP, I_SAKURA, I_CAMERA,
+  I_MQTT, I_HTTP, I_SAKURA, I_CAMERA, I_LCD,
   I_COMMA, I_SEMI,
   I_MINUS, I_PLUS, I_MUL, I_DIV, I_OPEN, I_CLOSE,
   I_GTE, I_SHARP, I_GT, I_EQ, I_LTE, I_LT, I_COLON,
@@ -271,7 +272,7 @@ void putnum(short value, short d) {
   c_puts(&lbuf[dig]); //桁位置からバッファの文字列を表示
 }*/
 // Print numeric specified columns
-void putnum(char *buf, short value, short d) {
+char *putnum(char *buf, short value, short d) {
   unsigned char dig; //桁位置
   unsigned char sign; //負号の有無（値を絶対値に変換した印）
 
@@ -301,6 +302,7 @@ void putnum(char *buf, short value, short d) {
     *buf++ = lbuf[dig++];
   }
   *buf = '\0';
+  return buf;
 }
 void putnum(short value, short d) {
   char buf[6];
@@ -933,7 +935,7 @@ short iexp() {
 }
 
 // PRINT handler
-void iprint() {
+/*void iprint() {
   short value; //値
   short len; //桁数
   unsigned char i; //文字数
@@ -976,6 +978,61 @@ void iprint() {
     }
   } //文末まで繰り返すの末尾
   newline(); //改行
+}*/
+void print(char *buff) {
+  short value; //値
+  short len; //桁数
+  unsigned char i; //文字数
+
+  len = 0; //桁数を初期化
+  while (*cip != I_SEMI && *cip != I_EOL) { //文末まで繰り返す
+    switch (*cip) { //中間コードで分岐
+
+    case I_STR: //文字列の場合
+      cip++; //中間コードポインタを次へ進める
+      i = *cip++; //文字数を取得
+      while (i--) //文字数だけ繰り返す
+        *buff++ = *cip++; //文字を表示
+      break; //打ち切る
+
+    case I_SHARP: //「#」の場合
+      cip++; //中間コードポインタを次へ進める
+      len = iexp(); //桁数を取得
+      if (err) //もしエラーが生じたら
+        return; //終了
+      break; //打ち切る
+
+    default: //以上のいずれにも該当しなかった場合（式とみなす）
+      value = iexp(); //値を取得
+      if (err) //もしエラーが生じたら
+        return; //終了
+      buff = putnum(buff, value, len); //値を表示
+      break; //打ち切る
+    } //中間コードで分岐の末尾
+
+    if (*cip == I_COMMA) { //もしコンマがあったら
+      cip++; //中間コードポインタを次へ進める
+      if (*cip == I_SEMI || *cip == I_EOL) //もし文末なら
+        return; //終了
+    } else { //コンマがなければ
+      if (*cip != I_SEMI && *cip != I_EOL) { //もし文末でなければ
+        err = ERR_SYNTAX; //エラー番号をセット
+        return; //終了
+      }
+    }
+  } //文末まで繰り返すの末尾
+  *buff = '\0';
+}
+void iprint() {
+  char buff[256];
+  print(buff);
+  c_puts(buff); 
+  newline(); //改行
+}
+void ilcd() {
+  char buff[256];
+  print(buff);
+  lcdprint(buff); 
 }
 
 // INPUT handler
@@ -1561,6 +1618,10 @@ unsigned char* iexe() {
     case I_CAMERA:
       cip++;
       icamera();
+      break;
+    case I_LCD:
+      cip++;
+      ilcd();
       break;
 
     case I_NEW: //中間コードがNEWの場合

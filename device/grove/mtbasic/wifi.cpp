@@ -3,6 +3,9 @@
 const char* ssid     = "iPhone 6S";
 const char* password = "P@55W0RD";
 
+int c_kbhit();
+int c_getch();
+
 void setupWiFi() {
   Serial.print("Connecting to ");
   Serial.println(ssid);  
@@ -10,6 +13,9 @@ void setupWiFi() {
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
+    if (c_kbhit()) //もし未読文字があったら
+      if (c_getch() == 27)  //読み込んでもし［ESC］キーだったら
+        break; //打ち切る
   }
   Serial.println("");
   Serial.println("WiFi connected");  
