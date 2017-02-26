@@ -3,3 +3,4 @@
 
 簡単でしょ！  
 小学生でも作れる！  
+/Users/itouyoshiaki/develop/SS2Kids/device/grove/README.md

@@ -7,6 +7,7 @@
 void setupWiFi();
 void setupCamera();
 void loopWiFi();
+void loopCamera();
 void basic(void);
 
 extern const char leds[] = {14, -1};
@@ -16,6 +17,7 @@ void setup(void){
   Serial.begin(115200);
   randomSeed(analogRead(0));
   Wire.begin();
+//  setupCamera();
 
   for (int i = 0; leds[i] != (const char)-1; i++) {
     pinMode(leds[i], OUTPUT);
@@ -29,5 +31,6 @@ void setup(void){
 
 void loop(void){
 //  loopWiFi();
+//  loopCamera();
   basic();
 }
