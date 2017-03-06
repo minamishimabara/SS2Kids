@@ -15,6 +15,21 @@
 - 価格1,242円
 <https://www.switch-science.com/catalog/1293/>
 
+### GROVE - シリアルカメラモジュール
+<img src="https://statics3.seeedstudio.com/images/product/Serial%20Camera.jpg">
+- 価格4,179円
+<https://www.switch-science.com/catalog/1626/>
+
+### GROVE - RGBバックライト液晶モジュール
+<img src="https://statics3.seeedstudio.com/images/104030001%201.jpg">
+- 価格1,944円
+<https://www.switch-science.com/catalog/1629/>
+
+### GROVE - 光センサ
+<img src="https://statics3.seeedstudio.com/images/101020014%201.jpg">
+- 価格432円
+<https://www.switch-science.com/catalog/815/>
+
 ## 南島原タイニーBASICの文法
 - 値の範囲 16ビット符号付き整数(-32767～32767)、数値のみ！
 - 代入は「=」でなく「:」1を使う
